@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="The BrainFANS 2024 Hackathon leader board page">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {{ partial "partials/addSass.html" (dict "style" "sass/main.scss") }}
+
+    <title>
+        {{ .Site.Title }}
+    </title>
+</head>
+
+
+<body>
+        {{ block "main" .}}
+        {{ end }}
+</body>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@octokit/rest/dist-web/index.js"></script>
+        {{ partial "partials/addJS.html" (dict "jsfile" "js/leaderboard.js") }}
+</html>
