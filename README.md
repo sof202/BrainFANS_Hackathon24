@@ -55,7 +55,7 @@ That is to say, you cannot disapprove a pull request based on opinion.
   for guidance on reviewing
 
 ### Four
-f a pull request is not actively worked on for w days and requires fixes
+If a pull request is not actively worked on for w days and requires fixes
 (in terms of functionality/design), the other team is allowed to create a pull
 request of their own tackling the same issue
   - This ensures that the issues actually get completed (which is the whole point).
