@@ -56,19 +56,6 @@ def get_users(owner, repo, pull_number, headers):
         print("Error fetching pull request data:", error)
 
 
-def get_commits(owner, repo, pull_number, headers):
-    url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/commits"
-
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        commits = response.json()
-
-        return len(commits)
-    except requests.exceptions.RequestException as error:
-        print("Error fetching pull request data:", error)
-
-
 def get_team(user):
     team_one = ["sof202", "marinafloresp", "siyiSEA"]
     team_two = ["ew267", "alicemfr", "rhaigh5"]
