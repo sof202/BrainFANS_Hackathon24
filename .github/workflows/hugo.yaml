@@ -43,7 +43,7 @@ jobs:
 
   - name: Run the fetch_data.py script
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     run: |
       python fetch_data.py
   - name: Commit and push changes
