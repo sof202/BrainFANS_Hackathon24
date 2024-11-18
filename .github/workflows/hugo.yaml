@@ -25,32 +25,32 @@ defaults:
 jobs:
   # gather data required for plotting
   fetch-data:
-  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-  steps:
-  - name: Checkout repository
-    uses: actions/checkout@v2
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-  - name: Set up Python
-    uses: actions/setup-python@v2
-    with:
-      python-version: '3.12'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
 
-  - name: Install dependencies
-    run: |
-      python -m pip install --upgrade pip
-      pip install requests
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
 
-  - name: Run the fetch_data.py script
-    env:
-      GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-    run: |
-      python fetch_data.py
-  - name: Upload artifacts
-    uses: actions/upload-artifact@v2
-    with:
-      name: data-files
-      path: static/
+    - name: Run the fetch_data.py script
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      run: |
+        python fetch_data.py
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: data-files
+        path: static/
 
   # Build job
   build:
