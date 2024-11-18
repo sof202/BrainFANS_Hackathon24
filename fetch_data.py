@@ -99,10 +99,13 @@ def create_lines_changed_data(owner, repo, pull_requests, headers):
             "label": "Lines of code changed",
             "data": lines_changed_data,
             "backgroundColor": [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(255, 159, 64, 0.2)"
+                "rgba(255, 138, 0, 0.9)",
+                "rgba(185, 255, 6, 0.9)"
             ],
-            "borderColor": "rgb(75, 192, 192)",
+            "borderColor": [
+                "rgba(255, 138, 0, 1)",
+                "rgba(185, 255, 6, 1)"
+            ],
             "tension": 0.1
         }]
     }
@@ -130,10 +133,13 @@ def create_pull_requests_closed_data(owner, repo, start_time, headers):
             "label": "Pull requests closed",
             "data": pull_requests_closed,
             "backgroundColor": [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(255, 159, 64, 0.2)"
+                "rgba(255, 138, 0, 0.9)",
+                "rgba(185, 255, 6, 0.9)"
             ],
-            "borderColor": "rgb(75, 192, 192)",
+            "borderColor": [
+                "rgba(255, 138, 0, 1)",
+                "rgba(185, 255, 6, 1)"
+            ],
             "tension": 0.1
         }]
     }
@@ -157,10 +163,13 @@ def create_collaborative_pr_data(owner, repo, pull_requests, headers):
             "label": "Number of collaborative pull requests",
             "data": collaborative_prs,
             "backgroundColor": [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(255, 159, 64, 0.2)"
+                "rgba(255, 138, 0, 0.9)",
+                "rgba(185, 255, 6, 0.9)"
             ],
-            "borderColor": "rgb(75, 192, 192)",
+            "borderColor": [
+                "rgba(255, 138, 0, 1)",
+                "rgba(185, 255, 6, 1)"
+            ],
             "tension": 0.1
         }]
     }
@@ -184,10 +193,13 @@ def create_issues_worked_on_data(owner, repo, headers):
             "label": "Number of issues currently worked on",
             "data": issues_worked_on,
             "backgroundColor": [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(255, 159, 64, 0.2)"
+                "rgba(255, 138, 0, 0.9)",
+                "rgba(185, 255, 6, 0.9)"
             ],
-            "borderColor": "rgb(75, 192, 192)",
+            "borderColor": [
+                "rgba(255, 138, 0, 1)",
+                "rgba(185, 255, 6, 1)"
+            ],
             "tension": 0.1
         }]
     }
