@@ -12,6 +12,30 @@ def write_file(data, filename):
         json.dump(data, json_file, indent=4)
 
 
+def get_team(user):
+    team_one = ["sof202", "marinafloresp", "siyiSEA"]
+    team_two = ["ew267", "alicemfr", "rhaigh5"]
+
+    if user in team_one:
+        return 1
+    elif user in team_two:
+        return 2
+    return 0
+
+
+def get_open_issues(owner, repo, headers):
+    url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=open"
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        issues = response.json()
+
+        return issues
+    except requests.exceptions.RequestException as error:
+        print("Error fetching pull request data:", error)
+
+
 def get_pull_requests_since_date(owner, repo, since_date, headers, state):
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls?state={state}"
 
@@ -56,30 +80,6 @@ def get_users(owner, repo, pull_number, headers):
         print("Error fetching pull request data:", error)
 
 
-def get_commits(owner, repo, pull_number, headers):
-    url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pull_number}/commits"
-
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        commits = response.json()
-
-        return len(commits)
-    except requests.exceptions.RequestException as error:
-        print("Error fetching pull request data:", error)
-
-
-def get_team(user):
-    team_one = ["sof202", "marinafloresp", "siyiSEA"]
-    team_two = ["ew267", "alicemfr", "rhaigh5"]
-
-    if user in team_one:
-        return 1
-    elif user in team_two:
-        return 2
-    return 0
-
-
 def create_lines_changed_data(owner, repo, pull_requests, headers):
     lines_changed = [get_lines_changed(
         owner, repo, number, headers) for number in pull_requests]
@@ -96,6 +96,7 @@ def create_lines_changed_data(owner, repo, pull_requests, headers):
     data = {
         "labels": ["Team One", "Team Two"],
         "datasets": [{
+            "label": "Lines of code changed",
             "data": lines_changed_data,
             "backgroundColor": [
                 "rgba(255, 99, 132, 0.2)",
@@ -118,14 +119,15 @@ def create_pull_requests_closed_data(owner, repo, start_time, headers):
              for number in closed_pull_requests]
     team_involved = [get_team(user) for user in users]
     pull_requests_closed = [0, 0]
-    for index in range(len(team_involved)):
-        if team_involved[index] == 1:
+    for team in team_involved:
+        if team == 1:
             pull_requests_closed[0] += 1
-        if team_involved[index] == 2:
+        if team == 2:
             pull_requests_closed[1] += 1
     data = {
         "labels": ["Team One", "Team Two"],
         "datasets": [{
+            "label": "Pull requests closed",
             "data": pull_requests_closed,
             "backgroundColor": [
                 "rgba(255, 99, 132, 0.2)",
@@ -138,6 +140,60 @@ def create_pull_requests_closed_data(owner, repo, start_time, headers):
     write_file(data, "pull_requests_closed.json")
 
 
+def create_collaborative_pr_data(owner, repo, pull_requests, headers):
+    users_on_pr = [get_users(owner, repo, number, headers)
+                   for number in pull_requests]
+    number_of_users = [len(users) for users in users_on_pr]
+    team_involved = [get_team(users[0]) for users in users_on_pr]
+    collaborative_prs = [0, 0]
+    for index in range(len(team_involved)):
+        if team_involved[index] == 1 and number_of_users[index] > 1:
+            collaborative_prs[0] += 1
+        if team_involved[index] == 2 and number_of_users[index] > 1:
+            collaborative_prs[1] += 1
+    data = {
+        "labels": ["Team One", "Team Two"],
+        "datasets": [{
+            "label": "Number of collaborative pull requests",
+            "data": collaborative_prs,
+            "backgroundColor": [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(255, 159, 64, 0.2)"
+            ],
+            "borderColor": "rgb(75, 192, 192)",
+            "tension": 0.1
+        }]
+    }
+    write_file(data, "collaborative_pull_requests.json")
+
+
+def create_issues_worked_on_data(owner, repo, headers):
+    open_issues = get_open_issues(owner, repo, headers)
+    issue_assignees = [issue['assignee']['login']
+                       for issue in open_issues if issue['assignee']]
+    team_involved = [get_team(assignee) for assignee in issue_assignees]
+    issues_worked_on = [0, 0]
+    for team in team_involved:
+        if team == 1:
+            issues_worked_on[0] += 1
+        if team == 2:
+            issues_worked_on[1] += 1
+    data = {
+        "labels": ["Team One", "Team Two"],
+        "datasets": [{
+            "label": "Number of issues currently worked on",
+            "data": issues_worked_on,
+            "backgroundColor": [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(255, 159, 64, 0.2)"
+            ],
+            "borderColor": "rgb(75, 192, 192)",
+            "tension": 0.1
+        }]
+    }
+    write_file(data, "issues_worked_on.json")
+
+
 if __name__ == "__main__":
     GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     OWNER = 'ejh243'
@@ -146,6 +202,7 @@ if __name__ == "__main__":
     OUTPUT_FILE = 'data/data.json'
     if GITHUB_TOKEN is None:
         print("GITHUB_TOKEN was not found, ensure it is set in env")
+        exit(1)
 
     HEADERS = {
         'Authorization': f'Bearer {GITHUB_TOKEN}',
@@ -162,3 +219,5 @@ if __name__ == "__main__":
 
     create_pull_requests_closed_data(OWNER, REPO, START_TIME, HEADERS)
     create_lines_changed_data(OWNER, REPO, pull_requests, HEADERS)
+    create_collaborative_pr_data(OWNER, REPO, pull_requests, HEADERS)
+    create_issues_worked_on_data(OWNER, REPO, HEADERS)
