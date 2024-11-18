@@ -146,6 +146,7 @@ if __name__ == "__main__":
     OUTPUT_FILE = 'data/data.json'
     if GITHUB_TOKEN is None:
         print("GITHUB_TOKEN was not found, ensure it is set in env")
+        exit(1)
 
     HEADERS = {
         'Authorization': f'Bearer {GITHUB_TOKEN}',
