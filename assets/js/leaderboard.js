@@ -2,6 +2,26 @@ import { Octokit } from "https://esm.sh/octokit";
 
 const octokit = new Octokit({});
 
+async function getPullRequestsSinceDate(owner, repo, sinceDate) {
+    try {
+        const { data: pullRequests } = await octokit.rest.pulls.list({
+            owner,
+            repo,
+            state: "all",
+        });
+
+        const filteredPRs = pullRequests.filter((pr) =>
+            new Date(pr.created_at) > new Date(sinceDate)
+        );
+
+        const pullRequestNumbers = filteredPRs.map((pr) => pr.number);
+
+        return pullRequestNumbers;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 async function getLinesChanged(owner, repo, pull_number) {
     try {
         const { data: files } = await octokit.rest.pulls.listFiles({
@@ -15,27 +35,48 @@ async function getLinesChanged(owner, repo, pull_number) {
             0,
         );
 
-        console.log(
-            `Total lines changed in PR #${pull_number}: **${totalLinesChanged}**`,
-        );
+        return totalLinesChanged;
     } catch (error) {
         console.error("Error fetching pull request data:", error);
     }
 }
 
-async function getUser(owner, repo, pull_number) {
+async function getUsers(owner, repo, pull_number) {
     try {
-        const { data: pullRequest } = await octokit.rest.pulls.get({
+        const { data: commits } = await octokit.rest.pulls.listCommits({
             owner,
             repo,
             pull_number,
         });
-        console.log(pullRequest.user.login);
+        const users = commits.map((commit) => commit.author.login);
+        const uniqueUsers = [...new Set(users)];
+        return uniqueUsers;
     } catch (error) {
         console.error("Error fetching pull request data:", error);
     }
 }
 
-// Example usage
-getLinesChanged("ejh243", "BrainFANS", 248);
-getUser("ejh243", "BrainFANS", 248);
+async function getCommits(owner, repo, pull_number) {
+    try {
+        const { data: commits } = await octokit.rest.pulls.listCommits({
+            owner,
+            repo,
+            pull_number,
+        });
+        return (commits.length);
+    } catch (error) {
+        console.error("Error fetching pull request data:", error);
+    }
+}
+
+function getTeam(user) {
+    const teamOne = ["sof202", "marinafloresp", "siyiSEA"];
+    const teamTwo = ["ew267", "alicemfr", "rhaigh5"];
+    let team = 0;
+    if (teamOne.includes(user)) {
+        team = 1;
+    } else if (teamTwo.includes(user)) {
+        team = 2;
+    }
+    return team;
+}
