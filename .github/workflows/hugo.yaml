@@ -46,13 +46,11 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     run: |
       python fetch_data.py
-  - name: Commit and push changes
-    run: |
-      git config --local user.email "action@github.com"
-      git config --local user.name "GitHub Action"
-      git add static
-      git commit -m "Update data" || echo "No changes to commit"
-      git push
+  - name: Upload artifacts
+    uses: actions/upload-artifact@v2
+    with:
+      name: data-files
+      path: static/
 
   # Build job
   build:
@@ -71,11 +69,13 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: data-files
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
-      - name: Install Node.js dependencies
-        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
