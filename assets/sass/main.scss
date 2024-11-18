@@ -1,13 +1,18 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #DDDDDD;
   color: #333;
   padding: 20px;
 }
 
-.commit {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #fff;
+#plot_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2%;
+}
+
+.plot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

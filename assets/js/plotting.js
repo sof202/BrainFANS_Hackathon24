@@ -19,4 +19,5 @@ function plotData(dataset, chartID, chartType) {
         .catch((error) => console.error("Error fetching the data:", error));
 }
 
-plotData("data.json", "myChart", "bar");
+plotData("lines_changed.json", "lines_changed", "bar");
+plotData("pull_requests_closed.json", "closed_prs", "bar");
