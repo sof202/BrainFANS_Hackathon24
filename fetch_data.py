@@ -106,10 +106,10 @@ def create_pull_requests_closed_data(owner, repo, start_time, headers):
              for number in closed_pull_requests]
     team_involved = [get_team(user) for user in users]
     pull_requests_closed = [0, 0]
-    for index in range(len(team_involved)):
-        if team_involved[index] == 1:
+    for team in team_involved:
+        if team == 1:
             pull_requests_closed[0] += 1
-        if team_involved[index] == 2:
+        if team == 2:
             pull_requests_closed[1] += 1
     data = {
         "labels": ["Team One", "Team Two"],
