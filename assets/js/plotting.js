@@ -21,3 +21,4 @@ function plotData(dataset, chartID, chartType) {
 
 plotData("lines_changed.json", "lines_changed", "bar");
 plotData("pull_requests_closed.json", "closed_prs", "bar");
+plotData("collaborative_pull_requests.json", "collaborative_prs", "bar");

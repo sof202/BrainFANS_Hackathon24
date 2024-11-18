@@ -127,6 +127,33 @@ def create_pull_requests_closed_data(owner, repo, start_time, headers):
     write_file(data, "pull_requests_closed.json")
 
 
+def create_collaborative_pr_data(owner, repo, pull_requests, headers):
+    users_on_pr = [get_users(owner, repo, number, headers)
+                   for number in pull_requests]
+    number_of_users = [len(users) for users in users_on_pr]
+    team_involved = [get_team(users[0]) for users in users_on_pr]
+    collaborative_prs = [0, 0]
+    for index in range(len(team_involved)):
+        if team_involved[index] == 1 and number_of_users[index] > 1:
+            collaborative_prs[0] += 1
+        if team_involved[index] == 2 and number_of_users[index] > 1:
+            collaborative_prs[1] += 1
+    data = {
+        "labels": ["Team One", "Team Two"],
+        "datasets": [{
+            "label": "Number of collaborative pull requests",
+            "data": collaborative_prs,
+            "backgroundColor": [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(255, 159, 64, 0.2)"
+            ],
+            "borderColor": "rgb(75, 192, 192)",
+            "tension": 0.1
+        }]
+    }
+    write_file(data, "collaborative_pull_requests.json")
+
+
 if __name__ == "__main__":
     GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     OWNER = 'ejh243'
@@ -152,3 +179,5 @@ if __name__ == "__main__":
 
     create_pull_requests_closed_data(OWNER, REPO, START_TIME, HEADERS)
     create_lines_changed_data(OWNER, REPO, pull_requests, HEADERS)
+    create_collaborative_pr_data(OWNER, REPO, pull_requests, HEADERS)
+    create_issues_worked_on_data(OWNER, REPO, START_TIME, HEADERS)
