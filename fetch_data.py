@@ -12,6 +12,17 @@ def write_file(data, filename):
         json.dump(data, json_file, indent=4)
 
 
+def get_team(user):
+    team_one = ["sof202", "marinafloresp", "siyiSEA"]
+    team_two = ["ew267", "alicemfr", "rhaigh5"]
+
+    if user in team_one:
+        return 1
+    elif user in team_two:
+        return 2
+    return 0
+
+
 def get_pull_requests_since_date(owner, repo, since_date, headers, state):
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls?state={state}"
 
@@ -54,17 +65,6 @@ def get_users(owner, repo, pull_number, headers):
         return list(users)
     except requests.exceptions.RequestException as error:
         print("Error fetching pull request data:", error)
-
-
-def get_team(user):
-    team_one = ["sof202", "marinafloresp", "siyiSEA"]
-    team_two = ["ew267", "alicemfr", "rhaigh5"]
-
-    if user in team_one:
-        return 1
-    elif user in team_two:
-        return 2
-    return 0
 
 
 def create_lines_changed_data(owner, repo, pull_requests, headers):
