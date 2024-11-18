@@ -23,6 +23,19 @@ def get_team(user):
     return 0
 
 
+def get_open_issues(owner, repo, headers):
+    url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=open"
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        issues = response.json()
+
+        return issues
+    except requests.exceptions.RequestException as error:
+        print("Error fetching pull request data:", error)
+
+
 def get_pull_requests_since_date(owner, repo, since_date, headers, state):
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls?state={state}"
 
@@ -154,6 +167,33 @@ def create_collaborative_pr_data(owner, repo, pull_requests, headers):
     write_file(data, "collaborative_pull_requests.json")
 
 
+def create_issues_worked_on_data(owner, repo, headers):
+    open_issues = get_open_issues(owner, repo, headers)
+    issue_assignees = [issue['assignee']['login']
+                       for issue in open_issues if issue['assignee']]
+    team_involved = [get_team(assignee) for assignee in issue_assignees]
+    issues_worked_on = [0, 0]
+    for team in team_involved:
+        if team == 1:
+            issues_worked_on[0] += 1
+        if team == 2:
+            issues_worked_on[1] += 1
+    data = {
+        "labels": ["Team One", "Team Two"],
+        "datasets": [{
+            "label": "Number of issues currently worked on",
+            "data": issues_worked_on,
+            "backgroundColor": [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(255, 159, 64, 0.2)"
+            ],
+            "borderColor": "rgb(75, 192, 192)",
+            "tension": 0.1
+        }]
+    }
+    write_file(data, "issues_worked_on.json")
+
+
 if __name__ == "__main__":
     GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     OWNER = 'ejh243'
@@ -180,4 +220,4 @@ if __name__ == "__main__":
     create_pull_requests_closed_data(OWNER, REPO, START_TIME, HEADERS)
     create_lines_changed_data(OWNER, REPO, pull_requests, HEADERS)
     create_collaborative_pr_data(OWNER, REPO, pull_requests, HEADERS)
-    create_issues_worked_on_data(OWNER, REPO, START_TIME, HEADERS)
+    create_issues_worked_on_data(OWNER, REPO, HEADERS)
