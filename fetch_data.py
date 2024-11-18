@@ -139,11 +139,13 @@ def create_pull_requests_closed_data(owner, repo, start_time, headers):
 
 
 if __name__ == "__main__":
-    GITHUB_TOKEN = os.getenv("GITHUB_PAT")
+    GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     OWNER = 'ejh243'
     REPO = 'BrainFANS'
     START_TIME = "2023-07-08T13:41:09Z"
     OUTPUT_FILE = 'data/data.json'
+    if GITHUB_TOKEN is None:
+        print("GITHUB_TOKEN was not found, ensure it is set in env")
 
     HEADERS = {
         'Authorization': f'Bearer {GITHUB_TOKEN}',
