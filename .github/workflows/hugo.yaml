@@ -76,9 +76,6 @@ jobs:
         with:
           name: data-files
           path: static/
-      - name: Check arifacts
-        run: |
-          ls static/
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
