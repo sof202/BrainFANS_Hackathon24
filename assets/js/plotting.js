@@ -11,6 +11,29 @@ function plotData(dataset, chartID, chartType) {
                     scales: {
                         y: {
                             beginAtZero: true,
+                            ticks: {
+                                color: "white",
+                            },
+                            grid: {
+                                color: "rgba(200, 200, 200, 0.2)",
+                            },
+                        },
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: "white",
+                            },
+                            grid: {
+                                color: "rgba(200, 200, 200, 0.2)",
+                            },
+                        },
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: "white",
+                                font: "outfit",
+                            },
                         },
                     },
                 },

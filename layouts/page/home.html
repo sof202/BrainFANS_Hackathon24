@@ -1,23 +1,28 @@
 {{ define "main" }}
-<h1>BrainFANS 2024 Sprint</h1>
+<div class="top">
+    {{ with resources.Get "images/brain_fan.jpg"}}
+    <img src="{{ .RelPermalink }}">
+    {{ end }}
+    <h1>BrainFANS 2024 Sprint Statistics</h1>
+</div>
 
 <div id="plot_grid">
-    <div class="plot">
+    <div class="plot top-left">
         <h1>Number of lines changed</h1>
         <canvas id="lines_changed"></canvas>
     </div>
 
-    <div class="plot">
+    <div class="plot top-middle">
         <h1>Number of pull requests closed</h1>
         <canvas id="closed_prs"></canvas>
     </div>
 
-    <div class="plot">
+    <div class="plot top-right">
         <h1>Number of collaborative pull requests</h1>
         <canvas id="collaborative_prs"></canvas>
     </div>
 
-    <div class="plot">
+    <div class="plot bottom-left">
         <h1>Number of issues currently worked on</h1>
         <canvas id="issues_worked_on"></canvas>
     </div>
