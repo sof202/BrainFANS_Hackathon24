@@ -96,6 +96,7 @@ def create_lines_changed_data(owner, repo, pull_requests, headers):
     data = {
         "labels": ["Team One", "Team Two"],
         "datasets": [{
+            "label": "Lines of code changed",
             "data": lines_changed_data,
             "backgroundColor": [
                 "rgba(255, 99, 132, 0.2)",
@@ -126,6 +127,7 @@ def create_pull_requests_closed_data(owner, repo, start_time, headers):
     data = {
         "labels": ["Team One", "Team Two"],
         "datasets": [{
+            "label": "Pull requests closed",
             "data": pull_requests_closed,
             "backgroundColor": [
                 "rgba(255, 99, 132, 0.2)",
