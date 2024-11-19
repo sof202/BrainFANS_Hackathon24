@@ -61,3 +61,14 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
+
+@media only screen and (max-width:1000px) {
+  #plot_grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top {
+    flex-direction: column;
+  }
+}
