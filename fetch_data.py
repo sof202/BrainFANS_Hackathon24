@@ -208,9 +208,18 @@ def create_issues_worked_on_data(owner, repo, headers):
 
 
 def write_update_time(filename):
-    current_time = datetime.now()
-    formatted_string = current_time.strftime(
-        "Last updated on %A %dth %B at %H:%M")
+    def get_suffix(d):
+        return {1: 'st', 2: 'nd', 3: 'rd'}.get(d % 20, 'th')
+
+    def custom_strftime(format, time):
+        time = time.strftime(format).replace(
+            '{S}',
+            str(time.day) + get_suffix(time.day)
+        )
+        return time
+
+    formatted_string = custom_strftime(
+        "Last updated on %A {S} %B at %H:%M", datetime.now())
     directory = os.path.dirname(os.path.abspath(__file__))
 
     file_path = os.path.join(directory, "static", filename)
