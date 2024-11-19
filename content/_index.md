@@ -9,13 +9,13 @@ the BrainFANS repository. People will be split into 2 teams who will compete
 for a grand prize.
 
 Teams will need to claim issues on BrainFANS by assigning a member of their
-team to them. After claiming an issue, the team that claims it must then cretae
+team to them. After claiming an issue, the team that claims it must then create
 a feature branch and work on a solution. Once complete they produce a pull
 request with their solution. At this point, the other team will then review the
 solution. They can either approve it as is, or make suggestions for change. The
 fact that each team are reviewing each others pull requests will hopefully
 result good quality working solutions being committed to the repository. An
-arbiter will be available to ensure fair play, and overule overly picky
+arbiter will be available to ensure fair play, and overrule overly picky
 reviews.
 
 Teams will be awarded points for engaging in good practise and successfully
