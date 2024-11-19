@@ -3,23 +3,24 @@ Title = "Home Page"
 layout = "home"
 +++
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Pulvinar mattis nunc sed blandit
-libero volutpat sed. Aliquam vestibulum morbi blandit cursus risus. Congue
-quisque egestas diam in arcu cursus euismod. Suspendisse faucibus interdum
-posuere lorem. Amet consectetur adipiscing elit duis tristique sollicitudin.
-Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant.
-Cursus vitae congue mauris rhoncus. Mi bibendum neque egestas congue quisque
-egestas diam in arcu. Metus vulputate eu scelerisque felis imperdiet proin.
-Quis vel eros donec ac odio tempor orci dapibus. Mi bibendum neque egestas
-congue. Senectus et netus et malesuada fames ac turpis egestas maecenas.
+From the 19th of November to the 12th of December, a hackathon will commence
+with the intention of completing as many of the outstanding issues present on
+the BrainFANS repository. People will be split into 2 teams who will compete
+for a grand prize.
 
-Congue eu consequat ac felis donec et. Aliquam ultrices sagittis orci a
-scelerisque purus semper eget duis. Eleifend donec pretium vulputate sapien
-nec. Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Non quam
-lacus suspendisse faucibus interdum. Ultricies lacus sed turpis tincidunt id.
-Dignissim cras tincidunt lobortis feugiat. Tortor consequat id porta nibh
-venenatis cras sed. Vitae semper quis lectus nulla at. Felis eget velit aliquet
-sagittis id. Facilisis leo vel fringilla est ullamcorper eget nulla facilisi.
-Malesuada fames ac turpis egestas integer eget aliquet nibh. Morbi non arcu
-risus quis. Mattis vulputate enim nulla aliquet porttitor.
+Teams will need to claim issues on BrainFANS by assigning a member of their
+team to them. After claiming an issue, the team that claims it must then cretae
+a feature branch and work on a solution. Once complete they produce a pull
+request with their solution. At this point, the other team will then review the
+solution. They can either approve it as is, or make suggestions for change. The
+fact that each team are reviewing each others pull requests will hopefully
+result good quality working solutions being committed to the repository. An
+arbiter will be available to ensure fair play, and overule overly picky
+reviews.
+
+Teams will be awarded points for engaging in good practise and successfully
+closing issues. As issues are not equal in the magnitude of changes and thus
+time need to solve the score for an issue will be proportional to the number of
+lines changed in the pull request. Detailed, more thorough pull requests are
+hence incentivised. At the end of the hackathon, the team with the most lines
+of code committed to the main branch will win.
