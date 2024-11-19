@@ -3,13 +3,15 @@
     {{ with resources.Get "images/brain_fan.jpg"}}
     <img src="{{ .RelPermalink }}">
     {{ end }}
-    <h1>BrainFANS 2024 Sprint Statistics</h1>
+    <h1>BrainFANS 2024 Sprint</h1>
 </div>
 
 <div class="description">
-    {{ .Content }}
+    <h1>Description of the Sprint</h1>
+    <p>{{ .Content }}</p>
 </div>
 
+<h1>Statistics</h1>
 <div id="plot_grid">
     <div class="plot top-left">
         <h1>Number of lines changed</h1>
