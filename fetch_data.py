@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+from datetime import datetime
 
 
 def write_file(data, filename):
@@ -206,6 +207,26 @@ def create_issues_worked_on_data(owner, repo, headers):
     write_file(data, "issues_worked_on.json")
 
 
+def write_update_time(filename):
+    def get_suffix(d):
+        return {1: 'st', 2: 'nd', 3: 'rd'}.get(d % 20, 'th')
+
+    def custom_strftime(format, time):
+        time = time.strftime(format).replace(
+            '{S}',
+            str(time.day) + get_suffix(time.day)
+        )
+        return time
+
+    formatted_string = custom_strftime(
+        "Last updated on %A {S} %B at %H:%M", datetime.now())
+    directory = os.path.dirname(os.path.abspath(__file__))
+
+    file_path = os.path.join(directory, "static", filename)
+    with open(file_path, 'w') as date_file:
+        date_file.write(formatted_string)
+
+
 if __name__ == "__main__":
     GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     OWNER = 'ejh243'
@@ -233,3 +254,4 @@ if __name__ == "__main__":
     create_lines_changed_data(OWNER, REPO, pull_requests, HEADERS)
     create_collaborative_pr_data(OWNER, REPO, pull_requests, HEADERS)
     create_issues_worked_on_data(OWNER, REPO, HEADERS)
+    write_update_time("update_time.txt")
