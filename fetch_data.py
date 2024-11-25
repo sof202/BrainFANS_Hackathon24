@@ -228,7 +228,6 @@ if __name__ == "__main__":
     OWNER = 'ejh243'
     REPO = 'BrainFANS'
     START_TIME = "2024-11-25T09:00:00Z"
-    OUTPUT_FILE = 'data/data.json'
     if GITHUB_TOKEN is None:
         print("GITHUB_TOKEN was not found, ensure it is set in env")
         exit(1)
