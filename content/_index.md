@@ -3,7 +3,7 @@ Title = "Home Page"
 layout = "home"
 +++
 
-From the 19th of November to the 12th of December, a hackathon will commence
+From the 25th of November to the 12th of December, a hackathon will commence
 with the intention of completing as many of the outstanding issues present on
 the BrainFANS repository as possible. People will be split into 2 teams who
 will compete for a grand prize.

@@ -1,6 +1,6 @@
 # BrainFANS Hackathon 2024
 
-From the 19th of November to the 12th of December, a hackathon will commence with
+From the 25th of November to the 12th of December, a hackathon will commence with
 the intention of completing as many of the outstanding issues present on the
 [BrainFANS](https://github.com/ejh243/BrainFANS/) repository. People will
 be split into 2 teams who will compete for a grand prize.
