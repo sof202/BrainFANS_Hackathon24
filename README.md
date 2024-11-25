@@ -27,10 +27,12 @@ the main branch will win.
 
 The teams are as follows:
 
-|Team 1|Team 2|
-|------|------|
-|blah|blah|
-|blah|blah|
+| Team 1 |Team 2|
+|--------|------|
+|Bethan  |Alice |
+|Luke    |Emma W|
+|Philippa|Greg  |
+|Sam     |Marina|
 
 
 ## Avoiding gamification (The rules)
