@@ -14,8 +14,8 @@ def write_file(data, filename):
 
 
 def get_team(user):
-    team_one = ["sof202", "marinafloresp", "siyiSEA"]
-    team_two = ["ew267", "alicemfr", "rhaigh5"]
+    team_one = ["sof202", "lw371" "bethan-mallabar-rimmer"]
+    team_two = ["ew267", "alicemfr", "marinafloresp"]
 
     if user in team_one:
         return 1
