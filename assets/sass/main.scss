@@ -34,6 +34,56 @@ h3 {
   text-align: center;
 }
 
+.teams {
+  display: flex;
+  justify-content: center;
+
+  .team {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5%;
+    text-align: center;
+    border-radius: 10px;
+    width: 15vw;
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      p {
+        font-size: 1.25rem;
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin: 5%;
+    }
+  }
+
+  .team-one {
+    border: 2px solid rgba(255, 138, 0, 0.9);
+
+    hr {
+      border: none;
+      height: 2px;
+      background-color: rgba(255, 138, 0, 0.9);
+      margin: 0;
+    }
+  }
+
+  .team-two {
+    border: 2px solid rgba(185, 255, 6, 0.9);
+
+    hr {
+      border: none;
+      height: 2px;
+      background-color: rgba(185, 255, 6, 0.9);
+      margin: 0;
+    }
+  }
+}
+
 #plot_grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -74,5 +124,14 @@ h3 {
 
   .top {
     flex-direction: column;
+  }
+
+  .teams {
+    flex-direction: column;
+
+    .team {
+      width: 80vw;
+      margin-bottom: 10px;
+    }
   }
 }

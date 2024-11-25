@@ -14,8 +14,8 @@ def write_file(data, filename):
 
 
 def get_team(user):
-    team_one = ["sof202", "marinafloresp", "siyiSEA"]
-    team_two = ["ew267", "alicemfr", "rhaigh5"]
+    team_one = ["sof202", "lw371" "bethan-mallabar-rimmer"]
+    team_two = ["ew267", "alicemfr", "marinafloresp", "gtw99"]
 
     if user in team_one:
         return 1
@@ -231,7 +231,7 @@ if __name__ == "__main__":
     GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     OWNER = 'ejh243'
     REPO = 'BrainFANS'
-    START_TIME = "2023-07-08T13:41:09Z"
+    START_TIME = "2024-11-25T09:00:00Z"
     OUTPUT_FILE = 'data/data.json'
     if GITHUB_TOKEN is None:
         print("GITHUB_TOKEN was not found, ensure it is set in env")
