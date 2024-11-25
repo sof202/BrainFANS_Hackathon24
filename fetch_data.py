@@ -46,7 +46,8 @@ def get_pull_requests_since_date(owner, repo, since_date, headers, state):
         pull_requests = response.json()
 
         filtered_prs = [pr['number'] for pr in pull_requests if
-                        pr['created_at'] > since_date]
+                        pr['created_at'] > since_date
+                        and pr['merged_at'] != "null"]
         return filtered_prs
     except requests.exceptions.RequestException as error:
         print("Error fetching pull request data:", error)
