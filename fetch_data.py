@@ -37,8 +37,8 @@ def get_open_issues(owner, repo, headers):
         print("Error fetching pull request data:", error)
 
 
-def get_pull_requests_since_date(owner, repo, since_date, headers, state):
-    url = f"https://api.github.com/repos/{owner}/{repo}/pulls?state={state}"
+def get_pull_requests_since_date(owner, repo, since_date, headers):
+    url = f"https://api.github.com/repos/{owner}/{repo}/pulls?state=closed"
 
     try:
         response = requests.get(url, headers=headers)
@@ -47,7 +47,7 @@ def get_pull_requests_since_date(owner, repo, since_date, headers, state):
 
         filtered_prs = [pr['number'] for pr in pull_requests if
                         pr['created_at'] > since_date
-                        and pr['merged_at'] != "null"]
+                        and pr['merged_at'] is not None]
         return filtered_prs
     except requests.exceptions.RequestException as error:
         print("Error fetching pull request data:", error)
@@ -114,14 +114,9 @@ def create_lines_changed_data(owner, repo, pull_requests, headers):
     write_file(data, "lines_changed.json")
 
 
-def create_pull_requests_closed_data(owner, repo, start_time, headers):
-    closed_pull_requests = get_pull_requests_since_date(owner,
-                                                        repo,
-                                                        start_time,
-                                                        headers,
-                                                        "closed")
+def create_pull_requests_closed_data(owner, repo, pull_requests, headers):
     users = [get_users(owner, repo, number, headers)[0]
-             for number in closed_pull_requests]
+             for number in pull_requests]
     team_involved = [get_team(user) for user in users]
     pull_requests_closed = [0, 0]
     for team in team_involved:
@@ -232,7 +227,7 @@ if __name__ == "__main__":
     GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     OWNER = 'ejh243'
     REPO = 'BrainFANS'
-    START_TIME = "2024-11-25T09:00:00Z"
+    START_TIME = "2023-11-25T09:00:00Z"
     OUTPUT_FILE = 'data/data.json'
     if GITHUB_TOKEN is None:
         print("GITHUB_TOKEN was not found, ensure it is set in env")
@@ -247,11 +242,10 @@ if __name__ == "__main__":
         OWNER,
         REPO,
         START_TIME,
-        HEADERS,
-        "all"
+        HEADERS
     )
 
-    create_pull_requests_closed_data(OWNER, REPO, START_TIME, HEADERS)
+    create_pull_requests_closed_data(OWNER, REPO, pull_requests, HEADERS)
     create_lines_changed_data(OWNER, REPO, pull_requests, HEADERS)
     create_collaborative_pr_data(OWNER, REPO, pull_requests, HEADERS)
     create_issues_worked_on_data(OWNER, REPO, HEADERS)
