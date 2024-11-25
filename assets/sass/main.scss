@@ -125,4 +125,13 @@ h3 {
   .top {
     flex-direction: column;
   }
+
+  .teams {
+    flex-direction: column;
+
+    .team {
+      width: 80vw;
+      margin-bottom: 10px;
+    }
+  }
 }
