@@ -34,6 +34,32 @@ h3 {
   text-align: center;
 }
 
+.teams {
+  display: flex;
+  justify-content: center;
+
+  .team {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  .team-one {
+    border: 2px solid rgba(255, 138, 0, 0.9);
+  }
+
+  .team-two {
+    border: 2px solid rgba(185, 255, 6, 0.9);
+  }
+}
+
 #plot_grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
