@@ -25,7 +25,7 @@ def get_team(user):
 
 
 def get_open_issues(owner, repo, headers):
-    url = f"https://api.github.com/repos/{owner}/{repo}/issues?state=open"
+    url = f"https://api.github.com/repos/{owner}/{repo}/issues?assignee=*&state=open"
 
     try:
         response = requests.get(url, headers=headers)
@@ -176,7 +176,7 @@ def create_collaborative_pr_data(owner, repo, pull_requests, headers):
 def create_issues_worked_on_data(owner, repo, headers):
     open_issues = get_open_issues(owner, repo, headers)
     issue_assignees = [issue['assignee']['login']
-                       for issue in open_issues if issue['assignee']]
+                       for issue in open_issues]
     team_involved = [get_team(assignee) for assignee in issue_assignees]
     issues_worked_on = [0, 0]
     for team in team_involved:
