@@ -1,8 +1,6 @@
 name: Deploy Hugo site to Pages
 
 on:
-  schedule:
-    - cron: '0 9-17 * * *'
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
